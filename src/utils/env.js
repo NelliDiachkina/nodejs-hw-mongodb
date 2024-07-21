@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-export default function env(name, defaultValue = 3000) {
+export default function env(name, defaultValue) {
   const value = process.env[name] || defaultValue;
-  return value;
+  if (value) return value;
+  throw new Error(`${name} variable not found`);
 }

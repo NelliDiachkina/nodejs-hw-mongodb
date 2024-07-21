@@ -4,7 +4,7 @@ import cors from 'cors';
 import env from './utils/env.js';
 
 export default function setupServer() {
-  const PORT = Number(env('PORT'));
+  const PORT = Number(env('PORT', 3000));
   const app = express();
 
   app.use(
