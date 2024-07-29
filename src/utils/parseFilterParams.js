@@ -13,6 +13,8 @@ const parseIsFavourite = (isFavourite) => {
 
   if (isFavourite === 'true') return true;
   if (isFavourite === 'false') return false;
+
+  return null;
 };
 
 export const parseFilterParams = (query) => {
