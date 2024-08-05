@@ -30,7 +30,7 @@ export const getAllContactsController = async (req, res) => {
   });
 };
 
-export const getContactByIdController = async (req, res, next) => {
+export const getContactByIdController = async (req, res) => {
   const id = req.params.contactId;
   const contact = await getContactById(id);
 
@@ -70,7 +70,7 @@ export const patchContactController = async (req, res) => {
   });
 };
 
-export const deleteContactController = async (req, res, next) => {
+export const deleteContactController = async (req, res) => {
   const id = req.params.contactId;
   const contact = await deleteContactById(id);
 
