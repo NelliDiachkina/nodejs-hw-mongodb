@@ -1,0 +1,209 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Contacts App",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of contacts app"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://nodejs-hw-mongodb-k74s.onrender.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contacts",
+      "description": "Contacts operations"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth operations"
+    }
+  ],
+  "paths": {
+    "/contacts/{contactId}": {
+      "get": {
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get contact by id",
+        "operationId": "getContact",
+        "description": "Get contact by id. You can get access only to contact added by you.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get contact by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/contact"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "contact": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "phoneNumber",
+          "contactType",
+          "userId",
+          "updatedAt",
+          "createdAt"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Contact id",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "name": {
+            "type": "string",
+            "description": "Сontact name",
+            "example": "Andriy Pavlenko"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Contact phone number",
+            "example": "+380671338855"
+          },
+          "email": {
+            "type": "string",
+            "description": "Contact email",
+            "example": "test@gmail.com"
+          },
+          "isFavourite": {
+            "type": "boolean",
+            "description": "Whether the contact if favourite"
+          },
+          "contactType": {
+            "type": "string",
+            "description": "Type of contact",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "example": "home"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Owner's id",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Contact's photo",
+            "example": "https://res.cloudinary.com/dtb0hczg2/image/upload/v1723745670/kxq2xjbwex2dcw7fvww1.webp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Contact last update"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Contact created at"
+          }
+        }
+      }
+    },
+    "responses": {
+      "404": {
+        "description": "Contact not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Contact not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
