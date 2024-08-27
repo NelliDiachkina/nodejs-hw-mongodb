@@ -44,8 +44,8 @@ requestBody:
             example: home
           photo:
             type: string
-            description: Link to contact's photo
-            example: https://res.cloudinary.com/dtb0hczg2/image/upload/v1723745670/kxq2xjbwex2dcw7fvww1.webp
+            format: binary
+            description: Сontact's photo (as a file)
 responses:
   '200':
     description: Patched a contact!
