@@ -59,6 +59,13 @@ export const refreshUserSessionController = async (req, res) => {
 };
 
 export const logoutUserController = async (req, res) => {
+  if (!req.cookies.sessionId) {
+    return res.status(401).json({
+      status: 401,
+      message: 'Unauthorized. No valid session found.',
+    });
+  }
+
   if (req.cookies.sessionId) {
     await logoutUser({
       sessionId: req.cookies.sessionId,
